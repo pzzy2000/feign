@@ -21,6 +21,10 @@ import java.net.URI;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.PostConstruct;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import feign.Request.HttpMethod;
 
 /**
@@ -47,11 +51,11 @@ public interface Contract {
           targetType.getSimpleName());
       checkState(targetType.getInterfaces().length <= 1, "Only single inheritance supported: %s",
           targetType.getSimpleName());
-      if (targetType.getInterfaces().length == 1) {
-        checkState(targetType.getInterfaces()[0].getInterfaces().length == 0,
-            "Only single-level inheritance supported: %s",
-            targetType.getSimpleName());
-      }
+//      if (targetType.getInterfaces().length == 1) {
+//        checkState(targetType.getInterfaces()[0].getInterfaces().length == 0,
+//            "Only single-level inheritance supported: %s",
+//            targetType.getSimpleName());
+//      }
       final Map<String, MethodMetadata> result = new LinkedHashMap<String, MethodMetadata>();
       for (final Method method : targetType.getMethods()) {
         if (method.getDeclaringClass() == Object.class ||
@@ -59,10 +63,13 @@ public interface Contract {
             Util.isDefault(method)) {
           continue;
         }
-        final MethodMetadata metadata = parseAndValidateMetadata(targetType, method);
-        checkState(!result.containsKey(metadata.configKey()), "Overrides unsupported: %s",
-            metadata.configKey());
-        result.put(metadata.configKey(), metadata);
+        if(method.isAnnotationPresent(PostMapping.class)|| method.isAnnotationPresent(GetMapping.class)||  method.isAnnotationPresent(RequestMapping.class)) {
+          final MethodMetadata metadata = parseAndValidateMetadata(targetType, method);
+          checkState(!result.containsKey(metadata.configKey()), "Overrides unsupported: %s",
+              metadata.configKey());
+          result.put(metadata.configKey(), metadata);  
+        }
+        
       }
       return new ArrayList<>(result.values());
     }
