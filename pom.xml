@@ -572,7 +572,7 @@
         <configuration>
           <keepBlankLines>true</keepBlankLines>
           <lineSeparator>\n</lineSeparator>
-          <sortOrderFile>src/config/pomSortOrder.xml</sortOrderFile>
+          <sortOrderFile>../src/config/pomSortOrder.xml</sortOrderFile>
           <createBackupFile>false</createBackupFile>
         </configuration>
         <executions>
