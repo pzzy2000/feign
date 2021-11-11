@@ -44,6 +44,8 @@ public final class MethodMetadata implements Serializable {
   private transient Class<?> targetType;
   private transient Method method;
   private transient final List<String> warnings = new ArrayList<>();
+  
+  private boolean formModule;
 
   MethodMetadata() {
     template.methodMetadata(this);
@@ -249,6 +251,14 @@ public final class MethodMetadata implements Serializable {
   public String warnings() {
     return warnings.stream()
         .collect(Collectors.joining("\n- ", "\nWarnings:\n- ", ""));
+  }
+
+  public boolean isFormModule() {
+    return formModule;
+  }
+
+  public void setFormModule(boolean formModule) {
+    this.formModule = formModule;
   }
 
 }
