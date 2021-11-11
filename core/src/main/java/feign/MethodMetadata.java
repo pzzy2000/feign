@@ -44,7 +44,7 @@ public final class MethodMetadata implements Serializable {
   private transient Class<?> targetType;
   private transient Method method;
   private transient final List<String> warnings = new ArrayList<>();
-  
+
   private boolean formModule;
 
   MethodMetadata() {
