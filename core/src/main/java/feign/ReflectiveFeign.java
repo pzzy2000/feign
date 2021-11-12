@@ -219,14 +219,20 @@ public class ReflectiveFeign extends Feign {
       for (Entry<Integer, Collection<String>> entry : metadata.indexToName().entrySet()) {
         int i = entry.getKey();
         Object value = argv[entry.getKey()];
-        if (value != null) { // Null values are skipped.
-          if (indexToExpander.containsKey(i)) {
-            value = expandElements(indexToExpander.get(i), value);
-          }
-          for (String name : entry.getValue()) {
-            varBuilder.put(name, value);
-          }
-        }  
+        if(metadata.isFormModule()) {
+            for (String name : entry.getValue()) {
+              varBuilder.put(name, value);
+            }
+          }else {
+            if (value != null) { // Null values are skipped.
+              if (indexToExpander.containsKey(i)) {
+                value = expandElements(indexToExpander.get(i), value);
+              }
+              for (String name : entry.getValue()) {
+                varBuilder.put(name, value);
+              }
+            }   
+          }  
       }
 
       RequestTemplate template = resolve(argv, mutable, varBuilder);
