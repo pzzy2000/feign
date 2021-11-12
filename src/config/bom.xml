@@ -26,7 +26,7 @@
   #if ($model.url)
 
   <url>${model.url}</url>#end
-  #if ($model.licenses & !$model.licenses.isEmpty())
+  #if ($model.licenses && !$model.licenses.isEmpty())
 
   <licenses>#foreach($l in $model.licenses)
 
