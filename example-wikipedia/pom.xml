@@ -22,8 +22,9 @@
     <artifactId>parent</artifactId>
     <version>10.10.1</version>
   </parent>
-
+   <!-- 
   <groupId>io.github.openfeign</groupId>
+   -->
   <artifactId>feign-example-wikipedia</artifactId>
   <packaging>jar</packaging>
   <name>Wikipedia Example</name>

@@ -22,8 +22,10 @@
     <artifactId>parent</artifactId>
     <version>10.10.1</version>
   </parent>
-
+  
+  <!-- 
   <groupId>io.github.openfeign.experimental</groupId>
+   -->
   <artifactId>feign-apt-test-generator</artifactId>
   <name>Feign APT test generator</name>
   <description>Feign code generation tool for mocked clients</description>
